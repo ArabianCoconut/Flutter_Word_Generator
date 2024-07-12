@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Startup Name Generator',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
@@ -286,7 +286,8 @@ class FavoritesPage extends StatelessWidget {
               for (var pair in appState.favorites)
                 ListTile(
                   leading: IconButton(
-                    icon: const Icon(Icons.delete_outline, semanticLabel: 'Delete'),
+                    icon: const Icon(Icons.delete_outline,
+                        semanticLabel: 'Delete'),
                     color: theme.colorScheme.primary,
                     onPressed: () {
                       appState.removeFavorite(pair);
