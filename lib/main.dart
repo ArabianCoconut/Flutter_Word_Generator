@@ -188,7 +188,7 @@ class Favorites extends StatelessWidget {
         for (var pair in favorites)
           ListTileTheme(
             child: ListTile(
-              subtitle: MediumCard(pair: pair),
+              subtitle: FavoritesCard(pair: pair),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
                 onPressed: () {
@@ -217,22 +217,16 @@ class BigCard extends StatelessWidget {
       color: theme.colorScheme.onPrimary,
     );
 
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
-    );
+    return CardSet(
+        theme: theme,
+        pair: pair,
+        style: style,
+        alignment: MainAxisAlignment.center);
   }
 }
 
-class MediumCard extends StatelessWidget {
-  const MediumCard({super.key, required this.pair});
+class FavoritesCard extends StatelessWidget {
+  const FavoritesCard({super.key, required this.pair});
   final WordPair pair;
 
   @override
@@ -241,11 +235,34 @@ class MediumCard extends StatelessWidget {
     final style = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
+    return CardSet(
+        theme: theme,
+        pair: pair,
+        style: style,
+        alignment: MainAxisAlignment.start);
+  }
+}
+
+class CardSet extends StatelessWidget {
+  const CardSet(
+      {super.key,
+      required this.theme,
+      required this.pair,
+      required this.style,
+      required this.alignment});
+
+  final ThemeData theme;
+  final WordPair pair;
+  final TextStyle style;
+  final MainAxisAlignment alignment;
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
         child: Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: alignment,
           children: [
             Card(
               color: theme.colorScheme.primary,
